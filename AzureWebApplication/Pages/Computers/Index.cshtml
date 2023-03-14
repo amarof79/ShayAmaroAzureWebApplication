@@ -1,0 +1,65 @@
+﻿@page
+@model AzureWebApplication.Pages.Computers.IndexModel
+
+@{
+    ViewData["Title"] = "Computers";
+}
+
+<h1>Computers</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form>
+    <p>
+        <!-- Search area -->
+        Manufacturers
+        <select asp-for="ComputerManufacturers" asp-items="Model.Manufacturers">
+            <option value="">All</option>
+        </select>
+        Serial Number
+        <select asp-for="ComputerSerialNumbers" asp-items="Model.SerialNumbers">
+            <option value="">All</option>
+        </select>
+        Computer Name: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ComputerList[0].ComputerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ComputerList[0].SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ComputerList[0].Manufacturer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ComputerList) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComputerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
